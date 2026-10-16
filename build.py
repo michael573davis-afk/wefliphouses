@@ -2,8 +2,7 @@ import hashlib as _h, json, pathlib
 R = pathlib.Path(__file__).parent
 V=_h.md5(b''.join(open(R/f,'rb').read() for f in ['assets/style.css','assets/logo.svg','assets/logo-light.svg','favicon.svg'])).hexdigest()[:8]
 NAV = [("Rates","rates.html"),("Calculator","calculator.html"),("Lenders","lenders/index.html"),("Newsletter","newsletter/index.html"),("Advertise","advertise.html")]
-SIGNUP = '''<form class="signup" onsubmit="event.preventDefault();this.innerHTML='<p><b>Thanks!</b> Signup goes live at launch (newsletter tool not connected yet).</p>'">
-<input type="email" required placeholder="you@email.com" aria-label="Email"><button class="btn">Get the Friday email</button></form>'''
+SIGNUP = '''<div class="bh-form"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="dce3dc61-62a8-45aa-924b-3f5930aff887"></script></div>'''
 
 def page(path, title, body, desc="Fix-and-flip loan rates, flip calculators, and a weekly newsletter for house flippers."):
     depth = path.count("/"); pre = "../"*depth
@@ -12,7 +11,7 @@ def page(path, title, body, desc="Fix-and-flip loan rates, flip calculators, and
 <title>{title} | We Flip Houses</title><meta name="description" content="{desc}"><link rel="icon" type="image/svg+xml" href="{pre}favicon.svg?v={V}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&display=swap"><link rel="stylesheet" href="{pre}assets/style.css?v={V}"></head><body>
 <header><div class="wrap"><a class="logo" href="{pre}index.html"><img src="{pre}assets/logo.svg?v={V}" alt="We Flip Houses" width="248" height="48"></a><nav>{nav}</nav></div></header>
 {body.replace("{pre}",pre).replace("{SIGNUP}",SIGNUP)}
-<footer><div class="wrap"><img class="flogo" src="{pre}assets/logo-light.svg?v={V}" alt="We Flip Houses" width="206" height="40"><br>© 2026 We Flip Houses LLC · <a href="{pre}methodology.html">Methodology</a> · <a href="{pre}advertise.html">Advertise</a><br>Rates are lenders' published figures, not quotes or offers. We are not a lender or broker. Verify every term with the lender.</div></footer></body></html>'''
+<footer><div class="wrap"><img class="flogo" src="{pre}assets/logo-light.svg?v={V}" alt="We Flip Houses" width="206" height="40"><br>© 2026 We Flip Houses LLC · <a href="{pre}methodology.html">Methodology</a> · <a href="{pre}advertise.html">Advertise</a><br>Rates are lenders' published figures, not quotes or offers. We are not a lender or broker. Verify every term with the lender.</div></footer><script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script></body></html>'''
     p = R/path; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(html)
 data = json.loads((R/"data/rates.json").read_text())
 def rate_txt(l):
@@ -88,8 +87,8 @@ page("advertise.html","Advertise with us",'''<section><div class="wrap"><h1>Reac
 <div class="grid"><div class="card"><h3>Featured lender listing</h3><p>Top-of-directory placement, a highlighted row on the rate tracker (labeled "Featured"), and an expanded profile.</p></div>
 <div class="card"><h3>Newsletter sponsor</h3><p>One sponsor slot in the Friday Flip email: a logo, 60 words, and a link.</p></div>
 <div class="card"><h3>Calculator sponsor</h3><p>A "Get a quote" card beside the flip profit calculator.</p></div></div>
-<div class="card" style="margin-top:20px"><h3>Get the media kit</h3><p>Pricing and audience numbers available at launch. Contact: <i>(email coming soon)</i></p></div></div></section>''')
+<div class="card" style="margin-top:20px"><h3>Get the media kit</h3><p>Pricing and audience numbers available on request. Contact: <i>(email coming soon)</i></p></div></div></section>''')
 
 page("newsletter/index.html","The Friday Flip newsletter archive",'''<section><div class="wrap" style="max-width:760px"><h1>The Friday Flip: archive</h1><p class="muted">Every issue covers rate moves, one lender spotlight, and one deal broken down.</p>
-<div class="card"><h3>Issue #1: coming soon</h3><p class="muted">The first issue goes out after launch. Sign up so you don't miss it.</p>{SIGNUP}</div></div></section>''')
+<div class="card"><h3>Issue #1: coming soon</h3><p class="muted">The first issue lands soon. Sign up so you don't miss it.</p>{SIGNUP}</div></div></section>''')
 print("built")
