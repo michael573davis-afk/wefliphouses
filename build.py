@@ -108,11 +108,13 @@ page("advertise.html","Advertise with us",'''<section><div class="wrap"><h1>Reac
 <div class="grid"><div class="card"><h3>Featured lender listing</h3><p>Top-of-directory placement, a highlighted row on the rate tracker (labeled "Featured"), and an expanded profile.</p></div>
 <div class="card"><h3>Newsletter sponsor</h3><p>One sponsor slot in the Friday Flip email: a logo, 60 words, and a link.</p></div>
 <div class="card"><h3>Calculator sponsor</h3><p>A "Get a quote" card beside the flip profit calculator.</p></div></div>
-<div class="card" style="margin-top:20px"><h3>Get the media kit</h3><p>Pricing and audience numbers available on request. Contact: <i>(email coming soon)</i></p></div></div></section>''')
+<div class="card" style="margin-top:20px"><h3>Get the media kit</h3><p>Pricing and audience numbers available on request. Contact: <a href="mailto:Michael573davis@gmail.com">Michael573davis@gmail.com</a></p></div></div></section>''')
 
 page("newsletter/index.html","The Friday Flip newsletter archive",'''<section><div class="wrap" style="max-width:760px"><h1>The Friday Flip: archive</h1><p class="muted">Every issue covers rate moves, one lender spotlight, and one deal broken down.</p>
-<div class="card"><h3>Issue #1: coming soon</h3><p class="muted">The first issue lands soon. Sign up so you don't miss it.</p>{SIGNUP}</div></div></section>''')
+<div class="card"><h3><a href="issue-1.html">The Friday Flip #1: who's lending, and a deal that breaks the 70% rule</a></h3><p class="muted">Oct 16, 2026 · This week's published hard money rates, an example flip run line by line, and a tip on rehab draw interest.</p></div><div class="card" style="margin-top:18px"><h3>Get the next issue</h3>{SIGNUP}</div></div></section>''')
 
+DESC["newsletter/issue-1.html"]="The Friday Flip #1: published hard money rates for Oct 16, 2026, an example fix-and-flip deal broken down line by line, and a tip on rehab draw interest."
+page("newsletter/issue-1.html","The Friday Flip #1: who's lending, and a deal that breaks the 70% rule",'<section><div class="wrap" style="max-width:780px"><p><a href="index.html">← Newsletter archive</a></p><h1>The Friday Flip #1</h1><p class="muted">Oct 16, 2026</p>'+(R/"newsletter/issues/issue-1.html.part").read_text()+'<div class="card" style="margin-top:24px"><h3>Get the Friday Flip every week</h3>{SIGNUP}</div></div></section>', schema={"@type":"Article","headline":"The Friday Flip #1: who's lending, and a deal that breaks the 70% rule","datePublished":"2026-10-16","author":{"@type":"Organization","name":"We Flip Houses"},"publisher":{"@type":"Organization","name":"We Flip Houses LLC"}})
 # ---- SEO landing pages ----
 ver = [l for l in data["lenders"] if l["status"]=="verified" and l["floor"] is not None]
 lrows = "".join(f'<tr><td><a href="lenders/{l["id"]}.html">{l["name"]}</a></td><td><b>{rate_txt(l)}</b></td><td>{status(l)}</td><td>{(l["last_checked"] or "")[:10]}</td><td><a href="{l["url"]}" rel="nofollow noopener" target="_blank">Source</a></td></tr>' for l in sorted(ver,key=lambda x:x["floor"]))
