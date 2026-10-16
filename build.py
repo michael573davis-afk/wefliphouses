@@ -1,16 +1,18 @@
-import json, pathlib
+import hashlib as _h, json, pathlib
 R = pathlib.Path(__file__).parent
+V=_h.md5(b''.join(open(R/f,'rb').read() for f in ['assets/style.css','assets/logo.svg','assets/logo-light.svg','favicon.svg'])).hexdigest()[:8]
 NAV = [("Rates","rates.html"),("Calculator","calculator.html"),("Lenders","lenders/index.html"),("Newsletter","newsletter/index.html"),("Advertise","advertise.html")]
 SIGNUP = '''<form class="signup" onsubmit="event.preventDefault();this.innerHTML='<p><b>Thanks!</b> Signup goes live at launch (newsletter tool not connected yet).</p>'">
 <input type="email" required placeholder="you@email.com" aria-label="Email"><button class="btn">Get the Friday email</button></form>'''
+
 def page(path, title, body, desc="Fix-and-flip loan rates, flip calculators, and a weekly newsletter for house flippers."):
     depth = path.count("/"); pre = "../"*depth
     nav = "".join(f'<a href="{pre}{h}">{n}</a>' for n,h in NAV)
     html = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title} | We Flip Houses</title><meta name="description" content="{desc}"><link rel="icon" type="image/svg+xml" href="{pre}favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&display=swap"><link rel="stylesheet" href="{pre}assets/style.css"></head><body>
-<header><div class="wrap"><a class="logo" href="{pre}index.html"><img src="{pre}assets/logo.svg" alt="We Flip Houses" width="248" height="48"></a><nav>{nav}</nav></div></header>
+<title>{title} | We Flip Houses</title><meta name="description" content="{desc}"><link rel="icon" type="image/svg+xml" href="{pre}favicon.svg?v={V}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&display=swap"><link rel="stylesheet" href="{pre}assets/style.css?v={V}"></head><body>
+<header><div class="wrap"><a class="logo" href="{pre}index.html"><img src="{pre}assets/logo.svg?v={V}" alt="We Flip Houses" width="248" height="48"></a><nav>{nav}</nav></div></header>
 {body.replace("{pre}",pre).replace("{SIGNUP}",SIGNUP)}
-<footer><div class="wrap">© 2026 We Flip Houses LLC · <a href="{pre}methodology.html">Methodology</a> · <a href="{pre}advertise.html">Advertise</a><br>Rates are lenders' published figures, not quotes or offers. We are not a lender or broker. Verify every term with the lender.</div></footer></body></html>'''
+<footer><div class="wrap"><img class="flogo" src="{pre}assets/logo-light.svg?v={V}" alt="We Flip Houses" width="206" height="40"><br>© 2026 We Flip Houses LLC · <a href="{pre}methodology.html">Methodology</a> · <a href="{pre}advertise.html">Advertise</a><br>Rates are lenders' published figures, not quotes or offers. We are not a lender or broker. Verify every term with the lender.</div></footer></body></html>'''
     p = R/path; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(html)
 data = json.loads((R/"data/rates.json").read_text())
 def rate_txt(l):

@@ -19,3 +19,4 @@ label{display:flex;justify-content:space-between;align-items:center;gap:10px;mar
 .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)}
 footer{background:#1B2A4A;color:#aab3c7;padding:28px 0;font-size:.9rem;margin-top:30px}footer a{color:#cfd6e6}
 h1,h2,h3,legend,.big,.btn{font-family:Montserrat,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;font-weight:800}h2,h3{color:var(--ink)}.btn:hover{background:#1F78A8}.card{border-top:4px solid var(--brand)}section:nth-of-type(even){background:#f4f8fb}
+.flogo{height:40px;width:auto;margin-bottom:10px}
