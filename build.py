@@ -4,14 +4,35 @@ V=_h.md5(b''.join(open(R/f,'rb').read() for f in ['assets/style.css','assets/log
 NAV = [("Rates","rates.html"),("Calculator","calculator.html"),("Lenders","lenders/index.html"),("Newsletter","newsletter/index.html"),("Advertise","advertise.html")]
 SIGNUP = '''<div class="bh-form"><script async src="https://subscribe-forms.beehiiv.com/v3/loader.js" data-beehiiv-form="dce3dc61-62a8-45aa-924b-3f5930aff887"></script></div>'''
 
-def page(path, title, body, desc="Fix-and-flip loan rates, flip calculators, and a weekly newsletter for house flippers."):
+BASE="https://wefliphousesllc.com/"
+PAGES=[]
+CALC_SCHEMA={"@type":"WebApplication","name":"Flip profit calculator","url":BASE+"calculator.html","applicationCategory":"FinanceApplication","operatingSystem":"Any (web browser)","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"description":"Free fix-and-flip profit calculator: purchase, rehab, ARV, loan, holding and selling costs to profit, ROI and 70% rule max offer."}
+DESC={
+"index.html":"Published fix-and-flip and hard money loan rates checked daily against lenders' own pages, a free flip profit calculator, and a weekly newsletter for house flippers.",
+"rates.html":"Today's published fix-and-flip and hard money loan rates from lenders' own pages, with source links, last-checked dates, and stale-page flags.",
+"calculator.html":"Free flip profit calculator. Enter purchase, rehab, ARV, loan terms, holding and selling costs to see profit, cash needed, ROI, and your 70% rule max offer.",
+"lenders/index.html":"Directory of fix-and-flip and hard money lenders with published rates, products, and links to each lender's own source page.",
+"methodology.html":"How We Flip Houses tracks hard money rates: lender-published figures only, daily checks, stale-source flags, and no guessed numbers.",
+"advertise.html":"Reach active house flippers with a featured lender listing, newsletter sponsorship, or calculator sponsorship. Flat fees, clearly labeled.",
+"newsletter/index.html":"The Friday Flip: a free weekly email with hard money rate moves, one lender spotlight, and one flip deal broken down line by line.",
+}
+def page(path, title, body, desc="Fix-and-flip loan rates, flip calculators, and a weekly newsletter for house flippers.", schema=None):
+    desc = DESC.get(path, desc)
+    if path.startswith("lenders/") and path!="lenders/index.html": desc = f"{title.replace(' fix-and-flip rates','')}: published fix-and-flip rate, product notes, source link, and last-checked date, tracked by We Flip Houses."
+    url = BASE + ("" if path=="index.html" else path.replace("index.html",""))
+    PAGES.append(url)
+    full = "We Flip Houses | "+title if path=="index.html" else f"{title} | We Flip Houses"
+    sd = [{"@context":"https://schema.org","@type":"WebSite","name":"We Flip Houses","url":BASE}] if path=="index.html" else []
+    if schema: sd.append(dict({"@context":"https://schema.org"}, **schema))
+    ld = "".join(f'<script type="application/ld+json">{json.dumps(x)}</script>' for x in sd)
+    seo = f'<link rel="canonical" href="{url}"><meta property="og:type" content="website"><meta property="og:site_name" content="We Flip Houses"><meta property="og:title" content="{full}"><meta property="og:description" content="{desc}"><meta property="og:url" content="{url}"><meta property="og:image" content="{BASE}assets/og.png"><meta name="twitter:card" content="summary_large_image">{ld}'
     depth = path.count("/"); pre = "../"*depth
     nav = "".join(f'<a href="{pre}{h}">{n}</a>' for n,h in NAV)
     html = f'''<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{title} | We Flip Houses</title><meta name="description" content="{desc}"><link rel="icon" type="image/svg+xml" href="{pre}favicon.svg?v={V}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&display=swap"><link rel="stylesheet" href="{pre}assets/style.css?v={V}"></head><body>
+<title>{full}</title><meta name="description" content="{desc}">{seo}<link rel="icon" type="image/svg+xml" href="{pre}favicon.svg?v={V}"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800;900&display=swap"><link rel="stylesheet" href="{pre}assets/style.css?v={V}"></head><body>
 <header><div class="wrap"><a class="logo" href="{pre}index.html"><img src="{pre}assets/logo.svg?v={V}" alt="We Flip Houses" width="248" height="48"></a><nav>{nav}</nav></div></header>
 {body.replace("{pre}",pre).replace("{SIGNUP}",SIGNUP)}
-<footer><div class="wrap"><img class="flogo" src="{pre}assets/logo-light.svg?v={V}" alt="We Flip Houses" width="206" height="40"><br>© 2026 We Flip Houses LLC · <a href="{pre}methodology.html">Methodology</a> · <a href="{pre}advertise.html">Advertise</a><br>Rates are lenders' published figures, not quotes or offers. We are not a lender or broker. Verify every term with the lender.</div></footer><script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script></body></html>'''
+<footer><div class="wrap"><img class="flogo" src="{pre}assets/logo-light.svg?v={V}" alt="We Flip Houses" width="206" height="40"><br>© 2026 We Flip Houses LLC · <a href="{pre}methodology.html">Methodology</a> · <a href="{pre}advertise.html">Advertise</a><br>Guides: <a href="{pre}hard-money-loan-rates-today.html">Hard money loan rates today</a> · <a href="{pre}fix-and-flip-calculator.html">Fix and flip calculator</a> · <a href="{pre}70-percent-rule-calculator.html">70% rule calculator</a><br>Rates are lenders' published figures, not quotes or offers. We are not a lender or broker. Verify every term with the lender.</div></footer><script type="text/javascript" async src="https://subscribe-forms.beehiiv.com/attribution.js"></script></body></html>'''
     p = R/path; p.parent.mkdir(parents=True, exist_ok=True); p.write_text(html)
 data = json.loads((R/"data/rates.json").read_text())
 def rate_txt(l):
@@ -33,7 +54,7 @@ page("index.html","Fix-and-flip loan rates & flip tools",f'''
 <div class="card"><h3>🏦 Lender directory</h3><p class="muted">Short profiles of hard money and fix-and-flip lenders: products, published terms, and where the numbers come from.</p><a href="lenders/index.html">Browse lenders →</a></div>
 </div></section>
 <section style="background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><div class="wrap"><h2>The Friday Flip email</h2>
-<p class="muted">Rate moves, one lender spotlight, and one real deal broken down line by line. Free, and you can unsubscribe anytime.</p>{{SIGNUP}}</div></section>''')
+<p class="muted">Rate moves, one lender spotlight, and one real deal broken down line by line. Free, and you can unsubscribe anytime.</p>{{SIGNUP}}</div></section>''', schema={"@type":"Organization","name":"We Flip Houses LLC","url":BASE,"logo":BASE+"assets/logo.svg"})
 
 rows = "".join(f'<tr><td><a href="lenders/{l["id"]}.html"><b>{l["name"]}</b></a></td><td>{l["product"]}</td><td><b>{rate_txt(l)}</b></td><td>{status(l)}{"<br><small class=muted>page dated "+l["page_date"]+"</small>" if l["page_date"] else ""}</td><td>{(l["last_checked"] or "—")[:10]}</td><td>{f'<a href="{l["url"]}" rel="nofollow noopener" target="_blank">Source</a>' if l["url"] else "—"}</td></tr>' for l in sorted(data["lenders"], key=lambda x:(x["floor"] is None, x["floor"] or 0)))
 page("rates.html","Fix-and-flip & hard money rates today",f'''<section><div class="wrap"><h1>Fix-and-flip & hard money rates</h1>
@@ -61,7 +82,7 @@ set("profit",usd(profit));document.getElementById("profit").className="big "+(pr
 set("cash",usd(cash));set("roi",pct(profit/cash));set("aroi",mo>0?pct(profit/cash*12/mo):"—");set("roc",pct(profit/total));set("int",usd(interest));set("fees",usd(fees));set("hold",usd(hold));set("sell",usd(sell));set("tot",usd(total));
 const mao=arv*0.7-rh;set("mao",usd(mao));set("maonote",`ARV × 70% − rehab. Your price is ${pp<=mao?usd(mao-pp)+" under":usd(pp-mao)+" over"} that.`);}
 document.querySelectorAll("#f input").forEach(i=>i.addEventListener("input",calc));calc();
-</script>''')
+</script>''', schema=CALC_SCHEMA)
 
 cards=""
 for l in data["lenders"]:
@@ -91,4 +112,50 @@ page("advertise.html","Advertise with us",'''<section><div class="wrap"><h1>Reac
 
 page("newsletter/index.html","The Friday Flip newsletter archive",'''<section><div class="wrap" style="max-width:760px"><h1>The Friday Flip: archive</h1><p class="muted">Every issue covers rate moves, one lender spotlight, and one deal broken down.</p>
 <div class="card"><h3>Issue #1: coming soon</h3><p class="muted">The first issue lands soon. Sign up so you don't miss it.</p>{SIGNUP}</div></div></section>''')
+
+# ---- SEO landing pages ----
+ver = [l for l in data["lenders"] if l["status"]=="verified" and l["floor"] is not None]
+lrows = "".join(f'<tr><td><a href="lenders/{l["id"]}.html">{l["name"]}</a></td><td><b>{rate_txt(l)}</b></td><td>{status(l)}</td><td>{(l["last_checked"] or "")[:10]}</td><td><a href="{l["url"]}" rel="nofollow noopener" target="_blank">Source</a></td></tr>' for l in sorted(ver,key=lambda x:x["floor"]))
+lo = min([l["floor"] for l in ver], default=None)
+FAQ_RATES=[("What are hard money loan rates today?", f"Among the lenders we could verify on {data['generated'][:10]}, the lowest published starting rate was {lo:.2f}%. Starting rates go to the strongest borrowers; most quotes come in higher." if lo else "We haven't verified any published rates yet today."),
+("Why is my quote higher than the advertised rate?","Advertised 'starting at' rates usually assume several completed flips, strong credit, and low leverage. Less experience, higher loan-to-cost, or a weaker property usually means a higher rate or more points."),
+("Do points matter as much as the rate?","Often more on a short loan. On a 6-month loan, 1 point costs about as much as 2% of annual interest. Compare total cost, not just the rate.")]
+def faq_html(f): return "".join(f"<h3>{q}</h3><p>{a}</p>" for q,a in f)
+def faq_schema(f): return {"@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in f]}
+DESC["hard-money-loan-rates-today.html"]="Hard money loan rates today, from lenders' own published pages, with source links and dates. Plus what drives your quote: points, leverage, experience, and term."
+page("hard-money-loan-rates-today.html","Hard money loan rates today",f'''<section><div class="wrap" style="max-width:860px"><h1>Hard money loan rates today</h1>
+<p class="muted">Published rates we verified on lenders' own pages. Data updated {data["generated"][:10]} (UTC). These are advertised figures, not quotes.</p>
+<div class="tbl"><table><thead><tr><th>Lender</th><th>Published rate</th><th>Status</th><th>Checked</th><th>Source</th></tr></thead><tbody>{lrows or '<tr><td colspan=5>No verified rates yet.</td></tr>'}</tbody></table></div>
+<p><a href="rates.html">See the full tracker, including lenders we haven't verified yet →</a></p>
+<h2>What actually sets your rate</h2><ul><li><b>Experience:</b> number of completed flips in the last 2–3 years is usually the biggest lever.</li><li><b>Leverage:</b> loan-to-cost and loan-to-ARV. Borrowing 90% of purchase usually costs more than 80%.</li><li><b>Credit and liquidity:</b> many lenders tier by credit score and cash reserves.</li><li><b>Points and fees:</b> a lower rate with 3 points can cost more than a higher rate with 1 point on a short hold.</li><li><b>Term and draws:</b> ask whether interest is charged on the full rehab budget or only on funds drawn.</li></ul>
+<h2>Common questions</h2>{faq_html(FAQ_RATES)}
+<p>Plug any of these rates into the <a href="calculator.html">flip profit calculator</a> to see what they do to your profit.</p></div></section>''', schema=faq_schema(FAQ_RATES))
+
+DESC["fix-and-flip-calculator.html"]="How to use a fix-and-flip calculator: every input explained (ARV, rehab, points, holding, selling costs), the formulas behind profit and ROI, and a free calculator."
+page("fix-and-flip-calculator.html","Fix and flip calculator: how to run a flip",'''<section><div class="wrap" style="max-width:820px"><h1>Fix and flip calculator</h1>
+<p>Our <a href="calculator.html"><b>free flip profit calculator</b></a> runs in your browser. Here's what each input means and how the math works, so you can trust (or challenge) the result.</p>
+<p><a class="btn" href="calculator.html">Open the calculator</a></p>
+<h2>The inputs</h2><ul><li><b>Purchase price</b> and <b>buying closing costs</b> (title, escrow, recording; often 1–3% of price).</li><li><b>Rehab budget:</b> include a contingency. Overruns are the most common way flips lose money.</li><li><b>ARV (after-repair value):</b> base it on recent comparable sales of renovated homes, not list prices.</li><li><b>Loan:</b> the % of purchase and % of rehab your lender funds, the interest rate, points, and flat fees.</li><li><b>Holding:</b> months from purchase to sale closing, plus monthly taxes, insurance, and utilities.</li><li><b>Selling:</b> agent commission and seller closing costs as a % of sale price.</li></ul>
+<h2>The formulas</h2><ul><li>Loan = purchase × loan % of purchase + rehab × loan % of rehab</li><li>Interest = loan × rate ÷ 12 × months (interest-only, full rehab charged from day one, the conservative case)</li><li>Total cost = purchase + rehab + buying costs + interest + points and fees + holding + selling costs</li><li>Profit = ARV − total cost</li><li>Cash in = total cost − selling costs − loan (selling costs come out of the sale proceeds)</li><li>ROI on cash = profit ÷ cash in; annualized = ROI × 12 ÷ months</li></ul>
+<h2>Sanity checks before you offer</h2><ul><li>Run it again with ARV 5–10% lower and rehab 15% higher. If profit disappears, the deal is thin.</li><li>Add a month or two to the hold. Permits and slow sales happen.</li><li>Compare with the <a href="70-percent-rule-calculator.html">70% rule</a> as a quick screen.</li></ul>
+<p>Need a rate to plug in? See <a href="hard-money-loan-rates-today.html">hard money loan rates today</a>.</p></div></section>''', schema=CALC_SCHEMA)
+
+FAQ70=[("What is the 70% rule in house flipping?","It's a quick screen: your maximum purchase price should be about 70% of the after-repair value (ARV), minus the rehab cost. The 30% left is meant to cover financing, holding, selling costs, and profit."),
+("Is the 70% rule still realistic?","It's a rule of thumb. In expensive or competitive markets, investors often go above 70% on cheaper rehabs; in slow markets or on heavy rehabs, many stay below it. Always run a full cost breakdown."),
+("Does the 70% rule include closing and holding costs?","Not explicitly. They're assumed to fit inside the remaining 30%, along with profit. That's why a full calculator is the better final check.")]
+DESC["70-percent-rule-calculator.html"]="Free 70% rule calculator for house flippers: maximum allowable offer = ARV × 70% − rehab. Adjust the percentage, see the formula, and learn when the rule breaks."
+page("70-percent-rule-calculator.html","70% rule calculator (max allowable offer)",f'''<section><div class="wrap" style="max-width:820px"><h1>70% rule calculator</h1>
+<p class="muted">Maximum allowable offer (MAO) = ARV × 70% − rehab cost. Runs in your browser; nothing is saved.</p>
+<div class="card" id="r70"><label>After-repair value, ARV ($)<input id="a" type="number" value="250000"></label><label>Rehab cost ($)<input id="r" type="number" value="40000"></label><label>Rule percentage (%)<input id="k" type="number" value="70"></label><label>Your asking / offer price ($, optional)<input id="o" type="number" value=""></label>
+<div class="muted" style="margin-top:10px">Maximum allowable offer</div><div class="big" id="m">—</div><p id="n" class="muted"></p></div>
+<script>const g=i=>+document.getElementById(i).value||0;function f(){{const m=g("a")*g("k")/100-g("r");document.getElementById("m").textContent="$"+Math.round(m).toLocaleString();const o=g("o");document.getElementById("n").textContent=o?(o<=m?"$"+Math.round(m-o).toLocaleString()+" under the max. Now check the full numbers.":"$"+Math.round(o-m).toLocaleString()+" over the max. Make sure the full numbers still work."):"";}}document.querySelectorAll("#r70 input").forEach(i=>i.addEventListener("input",f));f();</script>
+<h2>How it works</h2><p>Example: ARV of $250,000 × 70% = $175,000, minus $40,000 rehab = a $135,000 maximum offer. The remaining 30% of ARV ($75,000) has to cover buying and selling costs, loan interest and points, holding costs, and your profit.</p>
+<h2>Where the rule breaks</h2><ul><li><b>High-priced markets:</b> 30% of a $700,000 ARV is far more cushion than a typical flip needs, so investors often go higher.</li><li><b>Low-priced homes:</b> fixed costs eat a bigger share, so 65% or lower can be safer.</li><li><b>Expensive financing:</b> high points and long holds use up the 30% faster.</li></ul>
+<p>Once a deal passes the screen, run the full <a href="calculator.html">flip profit calculator</a> with real loan terms from <a href="hard-money-loan-rates-today.html">today's published rates</a>.</p>
+<h2>Common questions</h2>{faq_html(FAQ70)}</div></section>''', schema={"@graph":[dict(CALC_SCHEMA,name="70% rule calculator",url=BASE+"70-percent-rule-calculator.html",description=DESC["70-percent-rule-calculator.html"]),faq_schema(FAQ70)]})
+
+today = data["generated"][:10]
+(R/"sitemap.xml").write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+"".join(f"<url><loc>{u}</loc><lastmod>{today}</lastmod></url>\n" for u in PAGES)+"</urlset>\n")
+(R/"robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {BASE}sitemap.xml\n")
+
 print("built")
