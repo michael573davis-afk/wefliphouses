@@ -1,0 +1,25 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flip profit calculator | We Flip Houses</title><meta name="description" content="Fix-and-flip loan rates, flip calculators, and a weekly newsletter for house flippers."><link rel="stylesheet" href="assets/style.css"></head><body>
+<header><div class="wrap"><a class="logo" href="index.html">We Flip <span>Houses</span></a><nav><a href="rates.html">Rates</a><a href="calculator.html">Calculator</a><a href="lenders/index.html">Lenders</a><a href="newsletter/index.html">Newsletter</a><a href="advertise.html">Advertise</a></nav></div></header>
+<section><div class="wrap"><h1>Flip profit calculator</h1><p class="muted">Everything runs in your browser, and nothing you type is saved or sent.</p>
+<div class="calc"><div id="f">
+<fieldset><legend>Deal</legend><label>Purchase price ($)<input id="pp" type="number" value="180000"></label><label>Rehab budget ($)<input id="rehab" type="number" value="45000"></label><label>After-repair value, ARV ($)<input id="arv" type="number" value="300000"></label><label>Buying closing costs (%)<input id="bcc" type="number" step="0.1" value="2"></label></fieldset>
+<fieldset><legend>Loan</legend><label>Loan covers % of purchase<input id="ltp" type="number" value="90"></label><label>Loan covers % of rehab<input id="ltr" type="number" value="100"></label><label>Interest rate (%/yr, interest-only)<input id="rate" type="number" step="0.01" value="9.99"></label><label>Points (%)<input id="pts" type="number" step="0.1" value="2"></label><label>Lender fees ($)<input id="lfee" type="number" value="1500"></label></fieldset>
+<fieldset><legend>Holding</legend><label>Months held<input id="mo" type="number" value="6"></label><label>Taxes + insurance ($/mo)<input id="ti" type="number" value="400"></label><label>Utilities + other ($/mo)<input id="ut" type="number" value="250"></label></fieldset>
+<fieldset><legend>Selling</legend><label>Agent commission (%)<input id="comm" type="number" step="0.1" value="5"></label><label>Seller closing costs (%)<input id="scc" type="number" step="0.1" value="1.5"></label></fieldset>
+</div><div><div class="card result"><div class="muted">Estimated profit</div><div class="big" id="profit">—</div>
+<div class="row"><span>Cash you put in</span><b id="cash"></b></div><div class="row"><span>ROI on cash</span><b id="roi"></b></div><div class="row"><span>Annualized ROI</span><b id="aroi"></b></div><div class="row"><span>Return on total cost</span><b id="roc"></b></div>
+<div class="row"><span>Interest paid</span><span id="int"></span></div><div class="row"><span>Points + lender fees</span><span id="fees"></span></div><div class="row"><span>Holding costs</span><span id="hold"></span></div><div class="row"><span>Selling costs</span><span id="sell"></span></div><div class="row"><span>Total project cost</span><span id="tot"></span></div>
+<h3 style="margin-bottom:4px">70% rule max offer</h3><div class="big" id="mao" style="font-size:1.6rem"></div><p class="muted" id="maonote" style="margin-top:4px"></p>
+<p class="muted" style="font-size:.85rem">Estimate only. It assumes rehab money is drawn at the start and charged interest the whole time. <a href="rates.html">Compare current rates →</a></p></div></div></div></div></section>
+<script>
+const $=id=>+document.getElementById(id).value||0, set=(id,v)=>document.getElementById(id).textContent=v, usd=v=>(v<0?"-$":"$")+Math.abs(Math.round(v)).toLocaleString(), pct=v=>isFinite(v)?(v*100).toFixed(1)+"%":"—";
+function calc(){const pp=$("pp"),rh=$("rehab"),arv=$("arv"),mo=$("mo");
+const loan=pp*$("ltp")/100+rh*$("ltr")/100, interest=loan*$("rate")/100/12*mo, fees=loan*$("pts")/100+$("lfee"), buy=pp*$("bcc")/100, hold=($("ti")+$("ut"))*mo, sell=arv*($("comm")+$("scc"))/100;
+const total=pp+rh+buy+interest+fees+hold+sell, profit=arv-total, cash=total-sell-loan;
+set("profit",usd(profit));document.getElementById("profit").className="big "+(profit>=0?"pos":"neg");
+set("cash",usd(cash));set("roi",pct(profit/cash));set("aroi",mo>0?pct(profit/cash*12/mo):"—");set("roc",pct(profit/total));set("int",usd(interest));set("fees",usd(fees));set("hold",usd(hold));set("sell",usd(sell));set("tot",usd(total));
+const mao=arv*0.7-rh;set("mao",usd(mao));set("maonote",`ARV × 70% − rehab. Your price is ${pp<=mao?usd(mao-pp)+" under":usd(pp-mao)+" over"} that.`);}
+document.querySelectorAll("#f input").forEach(i=>i.addEventListener("input",calc));calc();
+</script>
+<footer><div class="wrap">© 2026 We Flip Houses LLC · <a href="methodology.html">Methodology</a> · <a href="advertise.html">Advertise</a><br>Rates are lenders' published figures, not quotes or offers. We are not a lender or broker. Verify every term with the lender.</div></footer></body></html>

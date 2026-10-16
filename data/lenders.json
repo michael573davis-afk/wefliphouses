@@ -1,0 +1,93 @@
+[
+ {
+  "id": "xoan-capital",
+  "name": "Xoan Capital",
+  "product": "Fix-and-flip",
+  "url": "https://www.xoancapital.com/loan-products/fix-and-flip",
+  "pattern": "Rates Starting at\\s*(\\d{1,2}\\.\\d{1,3})\\s*%",
+  "kind": "floor",
+  "notes": "Fixed-rate, interest-only, priced on experience."
+ },
+ {
+  "id": "jaken-finance-group",
+  "name": "Jaken Finance Group",
+  "product": "Fix-and-flip / hard money",
+  "url": "https://jakenfinancegroup.com/fix-and-flip-loan-rates/",
+  "pattern": "quotes qualified non-owner-occupied files at\\s*(\\d{1,2}\\.\\d{1,3})\\s*%\\s*[\\u2013-]\\s*(\\d{1,2}\\.?\\d{0,3})\\s*%",
+  "kind": "range",
+  "date_pattern": "as of\\s+([A-Z][a-z]+ \\d{4})",
+  "notes": "Interest-only, 6-12 month terms."
+ },
+ {
+  "id": "we-lend",
+  "name": "We Lend",
+  "product": "Fix-and-flip",
+  "url": "https://www.welendllc.com/blog/fix-and-flip-loan-rates",
+  "pattern": "We Lend\\s+(\\d{1,2}\\.\\d{1,3})%\\s+(\\d{1,2}\\.?\\d{0,3})-(\\d{1,2}\\.\\d{1,3})%",
+  "kind": "floor_range",
+  "notes": "Figure is from the lender's own blog article, not a dedicated rate page."
+ },
+ {
+  "id": "silt-capital",
+  "name": "Silt Capital",
+  "product": "Bridge (also DSCR)",
+  "url": null,
+  "notes": "Their rate page labels its table 'illustrative data' (last update Aug 12, 2026), so we don't show it."
+ },
+ {
+  "id": "lima-one",
+  "name": "Lima One Capital",
+  "product": "Fix-and-flip",
+  "url": null,
+  "notes": "Rate page not yet verified."
+ },
+ {
+  "id": "kiavi",
+  "name": "Kiavi",
+  "product": "Fix-and-flip",
+  "url": null,
+  "notes": "Rate page not yet verified."
+ },
+ {
+  "id": "rcn-capital",
+  "name": "RCN Capital",
+  "product": "Fix-and-flip",
+  "url": null,
+  "notes": "Rate page not yet verified."
+ },
+ {
+  "id": "new-silver",
+  "name": "New Silver",
+  "product": "Fix-and-flip",
+  "url": null,
+  "notes": "Rate page not yet verified."
+ },
+ {
+  "id": "easy-street",
+  "name": "Easy Street Capital",
+  "product": "Fix-and-flip",
+  "url": null,
+  "notes": "Rate page not yet verified."
+ },
+ {
+  "id": "stormfield",
+  "name": "Stormfield Capital",
+  "product": "Fix-and-flip",
+  "url": null,
+  "notes": "Rate page not yet verified."
+ },
+ {
+  "id": "groundfloor",
+  "name": "Groundfloor",
+  "product": "Fix-and-flip",
+  "url": null,
+  "notes": "Rate page not yet verified."
+ },
+ {
+  "id": "corevest",
+  "name": "CoreVest Finance",
+  "product": "Bridge",
+  "url": null,
+  "notes": "Rate page not yet verified."
+ }
+]
