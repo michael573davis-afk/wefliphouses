@@ -1,0 +1,118 @@
+<p>Hey there,</p>
+<p>Quick heads up: we skipped last Friday, so it's been two weeks since #3. Good news is you didn't miss much on rates. The bigger story this time is what your loan actually costs once points, fees, and draws pile on, because it's a lot more than the rate on the term sheet.</p>
+<h2>This week's published fix-and-flip rates</h2>
+<p>Every number below comes from the lender's own public page. Our last check was <strong>Nov 13, 2026</strong>. None of the 8 lenders we could check changed their published rate since <a href="issue-3.html">issue #3</a> (Oct 30), so that's four straight weeks with no moves. The one change: Xoan Capital's website went down (details below the table).</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Lender</th>
+<th>Published rate</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://www.limaone.com/fix-and-flip-loans/" rel="nofollow noopener" target="_blank">Lima One Capital</a></td>
+<td>As low as 7.25%</td>
+<td>FixNFlip, up to 95% LTC / 75% LTV, 13–24 month terms</td>
+</tr>
+<tr>
+<td><a href="https://www.kiavi.com/loans/fix-and-flip" rel="nofollow noopener" target="_blank">Kiavi</a></td>
+<td>As low as 8.25%</td>
+<td>Rate carries a lender footnote</td>
+</tr>
+<tr>
+<td><a href="https://www.welendllc.com/blog/fix-and-flip-loan-rates" rel="nofollow noopener" target="_blank">We Lend</a></td>
+<td>8.50% – 9.99%</td>
+<td>From the lender's blog, not a dedicated rate page</td>
+</tr>
+<tr>
+<td><a href="https://www.easystreetcap.com/fix-and-flip-loans/" rel="nofollow noopener" target="_blank">Easy Street Capital</a></td>
+<td>From 8.90%</td>
+<td>"Easy Fix" fix-and-flip / bridge product</td>
+</tr>
+<tr>
+<td><a href="https://jakenfinancegroup.com/fix-and-flip-loan-rates/" rel="nofollow noopener" target="_blank">Jaken Finance Group</a></td>
+<td>8.99% – 13.50%</td>
+<td>⚠️ Stale: rates dated August 2026 on their page</td>
+</tr>
+<tr>
+<td><a href="https://www.groundfloor.com/borrowers" rel="nofollow noopener" target="_blank">Groundfloor</a></td>
+<td>From 9.00%</td>
+<td>General starting rate for its short-term loans</td>
+</tr>
+<tr>
+<td><a href="https://www.rcncapital.com/fix-and-flip" rel="nofollow noopener" target="_blank">RCN Capital</a></td>
+<td>As low as 9.49%</td>
+<td>Experience tiers start higher</td>
+</tr>
+<tr>
+<td><a href="https://siltcapital.com/rates" rel="nofollow noopener" target="_blank">Silt Capital</a></td>
+<td>9.50%</td>
+<td>Fix &amp; flip row, 90% LTC / 70% ARV</td>
+</tr>
+<tr>
+<td>Xoan Capital</td>
+<td>9.15% (last read Nov 6)</td>
+<td>❌ Check failed: their whole site has shown "Site Not Found" since Nov 7</td>
+</tr>
+</tbody>
+</table></div>
+<p>So we're down to 8 lenders we could verify this week. We're keeping Xoan's last number on the tracker with a "Last check failed" flag instead of pretending it's current. If their site comes back, it'll update on its own. New Silver, Stormfield, and CoreVest still don't show a fix-and-flip rate we can confirm on their own sites, so they stay off the table. And Jaken's rates are still marked as of August, so we keep flagging them.</p>
+<p>Full table, updated daily: <a href="{pre}rates.html">wefliphousesllc.com/rates.html</a></p>
+<h2>New on the site: the hard money loan calculator</h2>
+<p>Plug in your deal and the lender's terms and it shows how much they'll actually lend (it checks both the cost cap and the ARV cap), your monthly interest-only payment, points, fees, draw fees, and the true yearly cost of the loan. It also shows how much extra you pay if the lender charges interest on rehab money they haven't released yet.</p>
+<p><a href="{pre}hard-money-loan-calculator.html">Run your loan numbers</a></p>
+<h2>Deal breakdown: the “10%” loan that costs 15% (EXAMPLE numbers)</h2>
+<p>These are made-up numbers to show the math. They aren't from a real property or any lender.</p>
+<p>Buy for $160,000, $40,000 rehab, $260,000 ARV. The lender covers 90% of purchase ($144,000) and all of the rehab ($40,000), so the loan is $184,000. Terms: 10% interest-only, 2 points, $1,500 in fees, $250 per draw. Rehab money comes out in 4 equal draws, one at the end of each of the first 4 months, and you sell in month 7.</p>
+<div class="tbl"><table>
+<thead>
+<tr>
+<th>Cost</th>
+<th>Interest on draws only</th>
+<th>Interest on full loan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Interest over 7 months</td>
+<td>$9,900</td>
+<td>$10,733</td>
+</tr>
+<tr>
+<td>Points (2% of $184,000)</td>
+<td>$3,680</td>
+<td>$3,680</td>
+</tr>
+<tr>
+<td>Lender fees</td>
+<td>$1,500</td>
+<td>$1,500</td>
+</tr>
+<tr>
+<td>Draw fees (4 × $250)</td>
+<td>$1,000</td>
+<td>$1,000</td>
+</tr>
+<tr>
+<td><strong>Total loan cost</strong></td>
+<td><strong>$16,080</strong></td>
+<td><strong>$16,913</strong></td>
+</tr>
+<tr>
+<td><strong>True yearly cost</strong></td>
+<td><strong>15.0%</strong></td>
+<td><strong>15.8%</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>How we got the interest: the $144,000 purchase part is out all 7 months, so $144,000 × 10% ÷ 12 × 7 = $8,400. Each $10,000 draw is only out for 6, 5, 4, and 3 months, which adds $1,500. Total $9,900. If the lender charges on the full $184,000 from day one, it's $184,000 × 10% ÷ 12 × 7 = $10,733. That's $833 for money you haven't even touched yet.</p>
+<p>True yearly cost is total cost ÷ loan ÷ 7 months × 12. So $16,080 ÷ $184,000 is 8.7% over 7 months, or about 15.0% a year.</p>
+<p>Now say the project runs 3 months long and you sell in month 10. Interest climbs to $14,500 and the total to $20,680 (still on the draws-only version, and before any extension fee). That's $4,600 more out of your profit.</p>
+<p>The rate is the number on the ad. The total is the number that comes out of your check. Run both before you sign.</p>
+<h2>Quick tip: ask "Dutch or non-Dutch?"</h2>
+<p>"Dutch" interest means you pay on the whole loan, including rehab money the lender is still holding. "Non-Dutch" means you only pay on what's been drawn. Lenders don't always put it on the first quote, so ask, and get the answer in writing next to the rate, points, and every fee.</p>
+<p>That's it for this week. Hit reply and tell me what you want covered next.</p>
+<p>— The We Flip Houses team</p>
+<p><em>Rates are lenders' published figures, not quotes or offers. We are not a lender or mortgage broker. Verify every term with the lender.<br>We Flip Houses LLC is owned by Michael Davis, a real estate salesperson licensed in Missouri with eXp Realty, LLC. This site is an independent information resource; it does not offer real estate brokerage services and is not operated by eXp Realty.</em></p>

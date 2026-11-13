@@ -6,7 +6,7 @@
   "url": "https://www.xoancapital.com/loan-products/fix-and-flip",
   "pattern": "Rates Starting at\\s*(\\d{1,2}\\.\\d{1,3})\\s*%",
   "kind": "floor",
-  "notes": "Fixed-rate, interest-only, priced on experience."
+  "notes": "Fixed-rate, interest-only, priced on experience. Since Nov 7, 2026 Xoan's whole website returns a \"Site Not Found\" page, so we can't re-check this rate. We show the last value we read on their own page (Nov 6, 2026), marked as a failed check."
  },
  {
   "id": "jaken-finance-group",
